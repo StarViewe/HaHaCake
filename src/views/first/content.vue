@@ -1,5 +1,5 @@
 <template>
-   我很好
+   hello!登录成功!
 </template>
 
 <script lang='ts' setup name=''>

@@ -44,4 +44,4 @@
 <script lang='ts' setup name=''>
    import { RouterLink,RouterView } from 'vue-router';
 </script>
-
+<!-- 未完成：1.忘记密码的密码一致校验 3.校验成功时跳转页面-->
