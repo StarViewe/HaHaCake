@@ -7,49 +7,52 @@ import phoneLog from '../views/second/login/phoneLog.vue';
 import Forget from '../views/second/login/Forget.vue';
 export const constantRoute = [
     {
-        path:'/login',
-        name:'login',
-        component:login,
-        children:[
+        path: '/login',
+        name: 'login',
+        component: login,
+        children: [
             {
-                path:'log',
-                name:'log',
-                component:log
+                path: 'log',
+                name: 'log',
+                component: log
             },
             {
-                path:'register',
-                name:'register',
-                component:register
-            }
+                path: 'register',
+                name: 'register',
+                component: register
+            },
+
+            {
+                path: '/Forget',
+                name: 'Forget',
+                component: Forget
+            },
+            {
+                path: '/phoneLog',
+                name: 'phoneLog',
+                component: phoneLog
+            },
         ]
-    },        
+    },
+
     {
-        path:'/content',
-        name:'content',
-        component:content
-    },        
-    {
-        path:'/_404',
-        name:'_404',
-        component:_404
+        path: '/content',
+        name: 'content',
+        component: content
     },
     {
-        path:'/:pathMatch(.*)*',
-        name:'Any',
-        redirect:'/_404'
+        path: '/_404',
+        name: '_404',
+        component: _404
     },
     {
-        path:'',
-        redirect:'/login/log'
+        path: '/:pathMatch(.*)*',
+        name: 'Any',
+        redirect: '/_404'
     },
     {
-        path:'/phoneLog',
-        name:'phoneLog',
-        component:phoneLog
-    },            
-    {
-        path:'/Forget',
-        name:'Forget',
-        component:Forget
-    }
+        path: '',
+        redirect: '/login/log'
+    },
+
 ]
