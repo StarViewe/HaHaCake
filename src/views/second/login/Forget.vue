@@ -70,15 +70,18 @@ const form = reactive<formRules>({
 const rules = reactive<FormRules<formRules>>({
 name:[
     {required:true, message:'请填写此项',trigger:'blur'},
-    {pattern:'/^[a-zA-Z0-9][\w\d]*$/', message:'不能以特殊符号作为开头',trigger:'blur'}
+    {pattern:'^[0-9a-zA-Z]', message:'不能以特殊符号作为开头',trigger:'blur'},
+    {pattern:'^[0-9a-zA-Z][0-9a-zA-Z_]*$', message:'句中不能包含特殊符号',trigger:'blur'}
 ],
 password1:[
     {required:true, message:'请填写此项',trigger:'blur'},
-    {pattern:'/^[a-zA-Z0-9][\w\d]*$/', message:'不能以特殊符号作为开头',trigger:'blur'}
+    {pattern:'^[0-9a-zA-Z]', message:'不能以特殊符号作为开头',trigger:'blur'},
+    {pattern:'^[0-9a-zA-Z][0-9a-zA-Z_]*$', message:'句中不能包含特殊符号',trigger:'blur'}
 ],
 password2:[
     {required:true, message:'请填写此项',trigger:'blur'},
-    {pattern:'/^[a-zA-Z0-9][\w\d]*$/', message:'不能以特殊符号作为开头',trigger:'blur'}
+    {pattern:'^[0-9a-zA-Z]', message:'不能以特殊符号作为开头',trigger:'blur'},
+    {pattern:'^[0-9a-zA-Z][0-9a-zA-Z_]*$', message:'句中不能包含特殊符号',trigger:'blur'}
 ],
 phonenum:[
     {required:true, message:'请填写此项',trigger:'blur'},
