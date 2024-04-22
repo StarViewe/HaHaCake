@@ -1,67 +1,64 @@
-  <template>
-    <div class="loginBox">
-        <div class="up">
-            <h2>手机验证码登录</h2>
-        </div>
-        <div class="middle">
-            <el-form :model="form" ref="ruleFormRef" :rules="rules" label-width="auto" style="max-width: 600px">
-                <el-form-item label="手机号" prop="phonenum">
-                    <el-input v-model="form.phonenum" style="width:240px" placeholder="请输入您的手机号" :prefix-icon="Phone"
+<template>
+
+    <div class="ph-title">手机验证码登录</div>
+    <div class="middle">
+        <el-form :model="form" ref="ruleFormRef" :rules="rules" label-width="auto" style="max-width: 600px">
+            <el-form-item label="手机号" prop="phonenum">
+                <el-input v-model="form.phonenum" style="width:240px" placeholder="请输入您的手机号" :prefix-icon="Phone"
                     onkeyup="this.value=this.value.replace(/\D/g,'')" size="large"></el-input>
-                </el-form-item>
-                <el-form-item label="验证码" prop="capthca">
-                    <el-input v-model="form.capthca" placeholder="验证码" style="width:140px;" :prefix-icon="CaretRight"
-                        maxlength="4" size="large" onkeyup="this.value=this.value.replace(/\D/g,'')"></el-input>
-                    <el-button style="transform: translate(0px,0);height: 48px;">获取验证码</el-button>
-                </el-form-item>
-                <div class="back">
-                    <RouterLink :to="{ path: '/login/log' }">返回</RouterLink>
-                </div>
-                <el-form-item>
-                    <el-button @click="submitForm(ruleFormRef)">登录</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
+            </el-form-item>
+            <el-form-item label="验证码" prop="capthca">
+                <el-input v-model="form.capthca" placeholder="验证码" style="width:125px;" :prefix-icon="CaretRight"
+                    maxlength="4" size="large" onkeyup="this.value=this.value.replace(/\D/g,'')"></el-input>
+                <el-button style="transform: translate(0px,0);height: 48px;margin-left: 15px;">获取验证码</el-button>
+            </el-form-item>
+            <div class="back">
+                <RouterLink :to="{ path: '/login/log' }">返回</RouterLink>
+            </div>
+            <el-form-item>
+                <el-button @click="submitForm(ruleFormRef)" class="log-button">登录</el-button>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 
 <script lang='ts' setup name=''>
-import { reactive,ref } from 'vue';
-import {  CaretRight, Phone } from '@element-plus/icons-vue'
+import { reactive, ref } from 'vue';
+import { CaretRight, Phone } from '@element-plus/icons-vue'
 import type { FormInstance, FormRules } from 'element-plus'
 
-interface formRules{
-    phonenum:string
-    capthca:string
+interface formRules {
+    phonenum: string
+    capthca: string
 }
 // const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
 const form = reactive<formRules>({
-    phonenum:'',
+    phonenum: '',
     capthca: '',
 })
 
 const rules = reactive<FormRules<formRules>>({
-phonenum:[
-    {required:true, message:'请填写此项',trigger:'blur'},
-    {min:11,message:'请输入11位手机号',trigger:'blur'}
-],
-capthca:[
-    {required:true, message:'请填写此项',trigger:'blur'},
-    {min:4,message:'请输入4位验证码',trigger:'blur'}
-],
+    phonenum: [
+        { required: true, message: '请填写此项', trigger: 'blur' },
+        { min: 11, message: '请输入11位手机号', trigger: 'blur' }
+    ],
+    capthca: [
+        { required: true, message: '请填写此项', trigger: 'blur' },
+        { min: 4, message: '请输入4位验证码', trigger: 'blur' }
+    ],
 })
 
 const submitForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.validate((valid) => {
-    if (valid) {
-      console.log('submit!')
-    } else {
-      console.log('error submit!')
-      return false
-    }
-  })
+    if (!formEl) return
+    formEl.validate((valid) => {
+        if (valid) {
+            console.log('submit!')
+        } else {
+            console.log('error submit!')
+            return false
+        }
+    })
 }
 
 function onlog() {
@@ -72,12 +69,27 @@ function onlog() {
 <style scoped>
 .loginBox {
     width: 400px;
-    height: 400px;
-    background-color: aqua;
+    height: 500px;
+    /* background-color: aqua; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
+    left: 500px;
+    /* border: 1px solid; */
+    border-radius: 12px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+.ph-title {
+    position: relative;
+    margin-top: 30px;
+    color: inherit;
+    display: flex;
+    height: 60px;
+    font-size: 24px;
+    font-weight: 700;
 }
 
 .up {
@@ -86,21 +98,22 @@ function onlog() {
     align-items: center;
     height: 18%;
     width: 100%;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
 }
 
 .middle {
     height: 82%;
     width: 100%;
-    background-color: azure;
+    /* background-color: azure; */
 }
 
-.back{
+.back {
     display: flex;
     justify-content: end;
     font-size: 16px;
     margin: 0;
     transform: translateY(5px);
+    margin-right: 10px;
 }
 
 form {
@@ -143,7 +156,7 @@ div {
 }
 
 ::v-deep .el-form-item__label {
-    /* color: rgb(0, 0, 0); */
+    color: inherit;
     font-size: 17px;
 }
 
@@ -156,6 +169,18 @@ div {
     margin-top: 0px;
     width: 100px;
     height: 40px;
+    outline: none;
+}
+
+.log-button {
+    transform: translate(35px, 0);
+    margin-top: 0px;
+    width: 250px;
+    height: 40px;
+    /* background-color: dodgerblue; */
+    letter-spacing: 4px;
+    /* color: #ffffff; */
+    font-size: 14px;
 }
 
 .el-input {
