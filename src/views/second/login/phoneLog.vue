@@ -14,6 +14,7 @@
           style="width: 240px"
           placeholder="请输入您的手机号"
           :prefix-icon="Phone"
+          maxlength="11"
           onkeyup="this.value=this.value.replace(/\D/g,'')"
           size="large"
         ></el-input>
