@@ -22,8 +22,8 @@
 
             </el-form-item>
             <div class="mid">
-                <RouterLink :to="{ path: '/phoneLog' }">手机验证码登录</RouterLink>
-                <RouterLink :to="{ path: '/Forget' }">忘记密码？</RouterLink>
+                <RouterLink :to="{ path: '/login/phoneLog' }">手机验证码登录</RouterLink>
+                <RouterLink :to="{ path: '/login/Forget' }">忘记密码？</RouterLink>
             </div>
             <el-form-item>
                 <el-button @click="submitForm(ruleFormRef)">登录</el-button>
