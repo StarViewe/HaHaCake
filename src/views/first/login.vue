@@ -72,7 +72,7 @@ function applyLoginColor() {
    justify-content: center;
    align-items: center;
    position: relative;
-   left: 500px;
+   left: 1095px;
    /* border: 1px solid; */
    border-radius: 12px;
    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
