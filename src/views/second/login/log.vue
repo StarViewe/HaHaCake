@@ -15,15 +15,11 @@
             <el-form-item label="验证码" prop="capthca">
                 <el-input v-model="form.capthca" placeholder="验证码" style="width:125px;" :prefix-icon="CaretRight"
                     maxlength="4" size="large" id="verify" @change="checkCaptcha"></el-input>
-
-
                 <canvas id="canvas" width="100" height="45" style="margin-left:15px;margin-top: 5px;"></canvas>
-
-
             </el-form-item>
             <div class="mid">
-                <RouterLink :to="{ path: '/phoneLog' }">手机验证码登录</RouterLink>
-                <RouterLink :to="{ path: '/Forget' }">忘记密码？</RouterLink>
+                <RouterLink :to="{ path: '/login/phoneLog' }">手机验证码登录</RouterLink>
+                <RouterLink :to="{ path: '/login/Forget' }">忘记密码？</RouterLink>
             </div>
             <el-form-item>
                 <el-button @click="submitForm(ruleFormRef)">登录</el-button>

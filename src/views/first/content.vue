@@ -9,8 +9,7 @@
                     <el-menu-item index="/content/goods">商品输出</el-menu-item>
                     <el-menu-item index="/content/orders">订单管理</el-menu-item>
                     <el-menu-item index="/content/employers">员工管理</el-menu-item>
-                    <!-- <el-menu-item index="/content/finance">财务管理</el-menu-item> -->
-                    <RouterLink :to="{path:'/content/finance'}">大声地</RouterLink>
+                    <el-menu-item index="/content/finance">财务管理</el-menu-item>
                 </el-menu>
             </el-aside>
             <el-main>

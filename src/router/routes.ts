@@ -49,32 +49,32 @@ export const constantRoute = [
       {
         path: 'employers',
         name: 'employers',
-        conponent: employers
+        component: employers
       },
       {
         path: 'finance',
         name: 'finance',
-        conponent: finance
+        component: finance
       },
       {
         path: 'goods',
         name: 'goods',
-        conponent: goods
+        component: goods
       },
       {
         path: 'homepage',
         name: 'homepage',
-        conponent: homepage
+        component: homepage
       },
       {
         path: 'materials',
         name: 'materials',
-        conponent: materials
+        component: materials
       },
       {
         path: 'orders',
         name: 'orders',
-        conponent: orders
+        component: orders
       },
     ]
   },
