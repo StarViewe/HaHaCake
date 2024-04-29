@@ -40,6 +40,10 @@ import { Lock, User, CaretRight } from '@element-plus/icons-vue'
 import { RouterLink } from 'vue-router';
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
+import useUserStore from '@/store/modules/users';
+
+
+
 const loginColor = ref('')
 interface formRules {
     name: string
@@ -56,6 +60,9 @@ const form = reactive<formRules>({
     password: '',
     capthca: '',
 })
+
+let useStore = useUserStore(form); 
+
 
 const rules = reactive<FormRules<formRules>>({
     name: [
