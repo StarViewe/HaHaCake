@@ -14,9 +14,10 @@
                 </el-menu>
             </el-aside>
             <el-main>
-                <div class="head"></div>
+
                 <RouterView></RouterView>
-                <div class="test"></div>
+
+                <!-- <div class="test"></div> -->
             </el-main>
         </el-container>
     </div>
@@ -26,7 +27,13 @@
 
 <script lang="ts" setup name="">
 import { RouterLink, RouterView } from 'vue-router'
-document.body.style.backgroundImage = 'none'
+import { reactive, ref, onMounted } from 'vue';
+const mainImg = ref('');
+mainImg.value = '/public/images/mainback-img.jpg'
+document.body.style.backgroundImage = `url(${mainImg.value}`
+document.body.style.backgroundSize = 'cover';
+document.body.style.backgroundRepeat = 'no-repeat';
+document.body.style.backgroundAttachment = 'fixed'
 </script>
 
 <style scoped>
@@ -40,11 +47,10 @@ document.body.style.backgroundImage = 'none'
     /* background-color: black; */
 }
 
-.head {
-    /* padding: 0px !important; */
-    margin-top: 90px;
-    height: 0px;
-    border-bottom: 1px solid black;
+.el-menu {
+    background-color: transparent;
+    margin-top: 30px;
+    border: none;
 }
 
 .el-container {
@@ -52,8 +58,9 @@ document.body.style.backgroundImage = 'none'
 }
 
 .el-aside {
-    background-color: rgb(253, 128, 128);
+    /* background-color: white; */
     overflow: hidden;
+    backdrop-filter: blur(15px);
     /* opacity: 0.5; */
 }
 
