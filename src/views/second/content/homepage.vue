@@ -1,5 +1,14 @@
 <template>
    <div class="title">首页</div>
+   <div class="ad">
+      <div class="pic">
+         <div class="portrait"></div>
+      </div>
+      <div class="admin">
+         <div class="admin_name">StarViewer</div>
+         <div class="admin_rights">werun快餐馆 管理员</div>
+      </div>
+   </div>
    <!-- <div class="head"></div> -->
    <div class="main">
       <div class="sum">
@@ -99,7 +108,9 @@
 
 <script setup lang="ts">
 import { onMounted, computed, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import * as echarts from 'echarts';
+const router = useRouter();
 const sum = ref('')
 const getMoney = ref('')
 const putMoney = ref('')
@@ -133,9 +144,10 @@ getMoney.value = '2545'
 putMoney.value = '552'
 rate.value = '86'
 time.value = '298'
-onMounted(() => {
+const initializeCharts = () => {
    const chartDom = document.getElementById('manage');
    if (chartDom) {
+      echarts.dispose(chartDom)
       const myChart = echarts.init(chartDom);
 
       const seriesLabel = {
@@ -229,9 +241,11 @@ onMounted(() => {
       };
 
       myChart.setOption(option);
-   }
+   };
+
    const chartDom2 = document.getElementById('statis');
    if (chartDom2) {
+      echarts.dispose(chartDom2)
       const myChart2 = echarts.init(chartDom2);
 
       const option2: echarts.EChartsOption = {
@@ -266,8 +280,11 @@ onMounted(() => {
       }
       option2 && myChart2.setOption(option2);
    }
+
+
    const chartDom3 = document.getElementById('expend');
    if (chartDom3) {
+      echarts.dispose(chartDom3)
       const myChart3 = echarts.init(chartDom3);
 
       const option3: echarts.EChartsOption = {
@@ -316,8 +333,10 @@ onMounted(() => {
       }
       option3 && myChart3.setOption(option3);
    }
+
    const chartDom4 = document.getElementById('income');
    if (chartDom4) {
+      echarts.dispose(chartDom4)
       const myChart4 = echarts.init(chartDom4);
 
       const option4: echarts.EChartsOption = {
@@ -356,7 +375,19 @@ onMounted(() => {
       }
       option4 && myChart4.setOption(option4);
    }
+}
+onMounted(() => {
+   initializeCharts();
 });
+
+router.beforeEach((to, from, next) => {
+   // 如果需要显示图表的路由，重新初始化图表
+   if (to.name === '需要显示图表的路由名称') {
+      initializeCharts();
+   }
+   next();
+})
+
 
 </script>
 
@@ -376,11 +407,61 @@ tr:first-child {
    background-color: grey;
 }
 
+.ad {
+   width: 230px;
+   /* height: 100%; */
+   position: absolute;
+   top: 5px;
+   right: 32px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.pic {
+   width: 80px;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.portrait {
+   width: 65px;
+   height: 65px;
+   background-color: antiquewhite;
+   border: 2px solid black;
+   border-radius: 50%;
+   background-image: url(/other/d79518f34c21af35bf771695b35ecec9.png);
+   background-size: cover;
+}
+
+.admin {
+   width: 140px;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: start;
+   flex-direction: column;
+   padding-left: 3px;
+}
+
+.admin_name {
+   font-size: 1.25rem;
+}
+
+.admin_rights {
+   font-size: 0.9rem;
+}
+
 .title {
    font-size: 32px;
    font-weight: 700;
    margin-top: 20px;
-   margin-left: 60px;
+   /* margin-left: 60px; */
+   padding-left: 60px;
+   padding-bottom: 10px;
+   border-bottom: 2px solid black;
 }
 
 .employer-people {
@@ -491,6 +572,7 @@ tr:first-child {
    padding-top: 22px;
    border-radius: 15px;
    border: 1px solid gray;
+   grid-area: box1;
 }
 
 .getMoney {
@@ -501,6 +583,7 @@ tr:first-child {
    padding-left: 15px;
    padding-top: 22px;
    border: 1px solid gray;
+   grid-area: box2;
 }
 
 .putMoney {
@@ -511,6 +594,7 @@ tr:first-child {
    padding-left: 15px;
    padding-top: 22px;
    border: 1px solid gray;
+   grid-area: box3;
 }
 
 .rate {
@@ -521,6 +605,7 @@ tr:first-child {
    padding-left: 15px;
    padding-top: 22px;
    border: 1px solid gray;
+   grid-area: box4;
 }
 
 .time {
@@ -531,6 +616,7 @@ tr:first-child {
    padding-left: 15px;
    padding-top: 22px;
    border: 1px solid gray;
+   grid-area: box5;
 }
 
 .main {
@@ -538,8 +624,9 @@ tr:first-child {
    margin-top: 40px;
    margin-left: 35px;
    grid-template-rows: 150px 290px 290px;
-   grid-template-columns: repeat(auto-fill, 220px);
+   grid-template-columns: repeat(5, 220px);
    /* grid-template-columns: 220px 300px; */
+   grid-template-areas: "box1 box2 box3 box4 box5";
    gap: 25px;
 }
 
