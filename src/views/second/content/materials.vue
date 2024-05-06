@@ -15,7 +15,7 @@
          </el-header>
          <el-main>
             <div class="left">
-               <div class="quickView" id="quickView"></div>
+<div class="quickView" id="quickView"></div>
                <div class="recentDetails">
                   <span style="font-size: 1.5rem;font-weight: 600;padding-left: 15px;">近期仓位变动明细</span>
                   <el-table :data="tableData" style="width: 100%;margin-top: 12px;height: 238px;">
@@ -29,8 +29,10 @@
                <div class="search">
                   <el-form :inline="true" :model="form" class="demo-form-inline">
                      <el-form-item>
+
                         <el-input v-model="form.searching" style="width: 500px;height: 50px;"
                            placeholder="请输入想要查找的物料" />
+
                      </el-form-item>
                      <el-form-item>
                         <el-button type="primary" @click="onSearch">搜索</el-button>
@@ -38,7 +40,9 @@
                   </el-form>
                </div>
                <div class="quickAct">
+
                   <span style="font-size: 1.5rem;font-weight: 600;margin-left: 10px;margin-top: 5px;">物料快捷操作</span>
+
                   <br>
                   <el-form :model="form" label-width="auto" style="width: 566px; transform: translateX(8px);">
                      <el-form-item label="物料名称">
@@ -52,8 +56,10 @@
                         <el-input v-model="form.operater" />
                      </el-form-item>
                   </el-form>
+
                   <el-form :model="form" label-width="auto" style="max-width: 600px;transform: translateX(8px);"
                      inline="true">
+
                      <el-form-item label="变化数量">
                         <el-input v-model="form.num" />
                      </el-form-item>
@@ -88,8 +94,10 @@
                         <el-input v-model="form.desc" type="textarea" />
                      </el-form-item>
                      <el-form-item>
+
                         <el-button type="primary" @click="onSubmit" style="outline: none;">执行操作</el-button>
                         <el-button style="outline: none;">清空操作</el-button>
+
                         <!-- 这里可以加个是否确认删除,以及是否关闭提示 -->
                      </el-form-item>
                   </el-form>

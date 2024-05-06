@@ -45,7 +45,7 @@ export const constantRoute = [
     path: '/content',
     name: 'content',
     component: content,
-    children: [
+    children:[
       {
         path: 'employers',
         name: 'employers',
@@ -76,7 +76,6 @@ export const constantRoute = [
         name: 'orders',
         component: orders
       },
-
     ]
   },
   {

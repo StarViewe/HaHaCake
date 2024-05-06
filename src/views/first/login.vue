@@ -63,6 +63,7 @@ function applyLoginColor() {
 </script>
 <style scoped>
 .loginBox {
+   /* transform: translateX(530px); */
    width: 400px;
    height: 500px;
    /* background-color: aqua; */
