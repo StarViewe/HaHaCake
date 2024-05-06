@@ -17,4 +17,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 console.log(import.meta.env)
 app.use(router).use(ElementPlus).use(pinia)
+
 app.mount('#app')

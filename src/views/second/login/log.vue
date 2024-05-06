@@ -1,13 +1,17 @@
 <template>
+    <!-- 该登录页面使用了element-plus集成，并基于此进行html元素的编写与css的排版。 -->
     <div class="login-title" :style="{ color: loginColor }">
         账号登录
     </div>
     <div>
+        <!-- 以下为登录表单,所有数据均为响应式 -->
         <el-form ref="ruleFormRef" :model="form" :rules="rules" label-width="auto" style="max-width: 600px">
+            <!-- 本处为账号输入框 -->
             <el-form-item label="账号" prop="name">
                 <el-input v-model="form.name" style="width:240px" placeholder="请输入您的用户名/账号" :prefix-icon="User"
                     size="large" @input="oncheck"></el-input>
             </el-form-item>
+            <!-- 本处为密码输入框 -->
             <el-form-item label="密码" prop="password">
                 <el-input v-model="form.password" placeholder="请输入您的密码" show-password style="width:240px"
                     :prefix-icon="Lock" size="large"></el-input>
@@ -18,6 +22,7 @@
                 <canvas id="canvas" width="100" height="45" style="margin-left:15px;margin-top: 5px;"></canvas>
             </el-form-item>
             <div class="mid">
+                <!-- 本处利用了路由进行页面的跳转 -->
                 <RouterLink :to="{ path: '/login/phoneLog' }">手机验证码登录</RouterLink>
                 <RouterLink :to="{ path: '/login/Forget' }">忘记密码？</RouterLink>
             </div>
@@ -52,22 +57,24 @@ interface formRules {
 }
 // const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()//获取dom元素
-
-
-// applyLoginColor()
+//通过ts约束数据类型,并将数据响应化
 const form = reactive<formRules>({
     name: '',
     password: '',
     capthca: '',
 })
 
-let useStore = useUserStore(form); 
+// let useStore = useUserStore(form); 
 
-
+//表单验证
 const rules = reactive<FormRules<formRules>>({
+    //以下为账号的验证规则
     name: [
+        //如果未填写，触发下列提示
         { required: true, message: '请填写此项', trigger: 'blur' },
+        //如果以特殊符号开头，触发下列提示
         { pattern: '^[0-9a-zA-Z]', message: '不能以特殊符号作为开头', trigger: 'blur' },
+        //如果句中包含特殊符号，触发下列提示
         { pattern: '^[0-9a-zA-Z][0-9a-zA-Z_]*$', message: '句中不能包含特殊符号', trigger: 'blur' }
 
     ],
