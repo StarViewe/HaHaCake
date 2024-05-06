@@ -7,6 +7,7 @@ export interface loginForm{
 }
 
 interface dataType{
+    message: string | undefined;
     token:string
 }
 

@@ -7,8 +7,8 @@
         <!-- 以下为登录表单,所有数据均为响应式 -->
         <el-form ref="ruleFormRef" :model="form" :rules="rules" label-width="auto" style="max-width: 600px">
             <!-- 本处为账号输入框 -->
-            <el-form-item label="账号" prop="name">
-                <el-input v-model="form.name" style="width:240px" placeholder="请输入您的用户名/账号" :prefix-icon="User"
+            <el-form-item label="账号" prop="username">
+                <el-input v-model="form.username" style="width:240px" placeholder="请输入您的用户名/账号" :prefix-icon="User"
                     size="large" @input="oncheck"></el-input>
             </el-form-item>
             <!-- 本处为密码输入框 -->
@@ -44,14 +44,15 @@ import { reactive, ref, onMounted } from 'vue';
 import { Lock, User, CaretRight } from '@element-plus/icons-vue'
 import { RouterLink } from 'vue-router';
 import type { FormInstance, FormRules } from 'element-plus'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElNotification } from 'element-plus'
 import useUserStore from '@/store/modules/users';
+import { useRouter } from 'vue-router';
 
-
-
+let useStore = useUserStore();
+let $router = useRouter();
 const loginColor = ref('')
 interface formRules {
-    name: string
+    username: string
     password: string
     capthca: string
 }
@@ -59,17 +60,42 @@ interface formRules {
 const ruleFormRef = ref<FormInstance>()//获取dom元素
 //通过ts约束数据类型,并将数据响应化
 const form = reactive<formRules>({
-    name: '',
+    username: '',
     password: '',
     capthca: '',
 })
 
-// let useStore = useUserStore(form); 
+const login = async() => {
+    try {
+        await useStore.userLogin(form);
+        $router.push({ path: '/content/homepage' })
+        ElMessage.success({
+            message: '登录成功',
+            type: 'success',
+        })
+    } catch (error) {
+        ElNotification({
+            type: 'error',
+            message:(error as Error).message
+        })
+    }
+}
+
+const submitForm = (formEl: FormInstance | undefined) => { //formEl 形参
+    if (!formEl) return
+    formEl.validate((valid) => {
+        if (valid) {
+            login()
+        } else {
+            return false
+        }
+    })
+}
 
 //表单验证
 const rules = reactive<FormRules<formRules>>({
     //以下为账号的验证规则
-    name: [
+    username: [
         //如果未填写，触发下列提示
         { required: true, message: '请填写此项', trigger: 'blur' },
         //如果以特殊符号开头，触发下列提示
@@ -224,23 +250,8 @@ function applyLoginColor() {
     loginColor.value = backgroundImg.value === '/public/images/back-image1.jpg' ? 'black' : 'white';
 }
 
-const submitForm = (formEl: FormInstance | undefined) => { //formEl 形参
-    if (!formEl) return
-    formEl.validate((valid) => {
-        if (valid) {
-            ElMessage.success({
-                message: '登录成功',
-                type: 'success',
-            })
-        } else {
-            ElMessage.error('登录失败')
-            return false
-        }
-    })
-}
-
 function oncheck() {
-    console.log(form.name[0]);
+    console.log(form.username[0]);
     // form.name[0]=form.name[0].replace(/[\W]/g,'')
 }
 </script>

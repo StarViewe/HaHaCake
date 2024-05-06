@@ -1,109 +1,119 @@
 <template>
-   <div class="title">首页</div>
-   <div class="ad">
-      <div class="pic">
-         <div class="portrait"></div>
-      </div>
-      <div class="admin">
-         <div class="admin_name">StarViewer</div>
-         <div class="admin_rights">werun快餐馆 管理员</div>
-      </div>
+   <div class="common-layout">
+      <el-container>
+         <el-header>
+            <div class="title">首页</div>
+            <div class="ad">
+               <div class="pic">
+                  <div class="portrait"></div>
+               </div>
+               <div class="admin">
+                  <div class="admin_name">StarViewer</div>
+                  <div class="admin_rights">werun快餐馆 管理员</div>
+               </div>
+            </div>
+         </el-header>
+         <el-main>
+            <div class="main">
+               <div class="sum">
+                  总点单量
+                  <br>
+                  <div class="number">{{ sum }}单</div>
+               </div>
+               <div class="getMoney">
+                  今日成交额
+                  <br>
+                  <div class="number">{{ getMoney }}元</div>
+               </div>
+               <div class="putMoney">
+                  季度物料成本
+                  <br>
+                  <div class="number">{{ putMoney }}元</div>
+               </div>
+               <div class="rate">
+                  季度平均利润率
+                  <br>
+                  <div class="number">{{ rate }}%</div>
+               </div>
+               <div class="time">
+                  月度工时统计
+                  <br>
+                  <div class="number">{{ time }}h</div>
+               </div>
+               <div class="manage" id="manage" ref="manage">
+
+               </div>
+               <!-- <div id="main" style="width: 800px; height: 600px;"></div> -->
+               <div class="list">
+                  <div class="list-title">最新表单列表：</div>
+                  <table class="newList">
+                     <tr>
+                        <td>第三季度财报</td>
+                     </tr>
+                     <tr>
+                        <td>{{ newList1 }}</td>
+                     </tr>
+                     <tr>
+                        <td>{{ newList2 }}</td>
+                     </tr>
+                     <tr>
+                        <td>{{ newList3 }}</td>
+                     </tr>
+                     <tr>
+                        <td>{{ newList4 }}</td>
+                     </tr>
+                     <tr>
+                        <td>{{ newList5 }}</td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="employer">
+                  <div class="employer-title">正在作业员工</div>
+                  <div class="employer-people">
+                     <div class="simple-people">
+                        <el-icon :size="40">
+                           <user />
+                        </el-icon>
+                        <div class="detailed-people">
+                           <div class="user">{{ user1 }}</div>
+                           <div class="job">{{ job1 }}</div>
+                        </div>
+                     </div>
+                     <div class="simple-people">
+                        <el-icon :size="40">
+                           <user />
+                        </el-icon>
+                        <div class="detailed-people">
+                           <div class="user">{{ user2 }}</div>
+                           <div class="job">{{ job2 }}</div>
+                        </div>
+
+                     </div>
+                     <div class="simple-people">
+                        <el-icon :size="40">
+                           <user />
+                        </el-icon>
+                        <div class="detailed-people">
+                           <div class="user">{{ user3 }}</div>
+                           <div class="job">{{ job3 }}</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- <br> -->
+               <div class="statis" id="statis"></div>
+               <div class="money" id="money">
+                  <div class="expend" id="expend"></div>
+                  <div class="line"></div>
+                  <div class="income" id="income"></div>
+               </div>
+            </div>
+         </el-main>
+      </el-container>
    </div>
+
    <!-- <div class="head"></div> -->
-   <div class="main">
-      <div class="sum">
-         总点单量
-         <br>
-         <div class="number">{{ sum }}单</div>
-      </div>
-      <div class="getMoney">
-         今日成交额
-         <br>
-         <div class="number">{{ getMoney }}元</div>
-      </div>
-      <div class="putMoney">
-         季度物料成本
-         <br>
-         <div class="number">{{ putMoney }}元</div>
-      </div>
-      <div class="rate">
-         季度平均利润率
-         <br>
-         <div class="number">{{ rate }}%</div>
-      </div>
-      <div class="time">
-         月度工时统计
-         <br>
-         <div class="number">{{ time }}h</div>
-      </div>
-      <div class="manage" id="manage" ref="manage">
 
-      </div>
-      <!-- <div id="main" style="width: 800px; height: 600px;"></div> -->
-      <div class="list">
-         <div class="list-title">最新表单列表：</div>
-         <table class="newList">
-            <tr>
-               <td>第三季度财报</td>
-            </tr>
-            <tr>
-               <td>{{ newList1 }}</td>
-            </tr>
-            <tr>
-               <td>{{ newList2 }}</td>
-            </tr>
-            <tr>
-               <td>{{ newList3 }}</td>
-            </tr>
-            <tr>
-               <td>{{ newList4 }}</td>
-            </tr>
-            <tr>
-               <td>{{ newList5 }}</td>
-            </tr>
-         </table>
-      </div>
-      <div class="employer">
-         <div class="employer-title">正在作业员工</div>
-         <div class="employer-people">
-            <div class="simple-people">
-               <el-icon :size="40">
-                  <user />
-               </el-icon>
-               <div class="detailed-people">
-                  <div class="user">{{ user1 }}</div>
-                  <div class="job">{{ job1 }}</div>
-               </div>
-            </div>
-            <div class="simple-people">
-               <el-icon :size="40">
-                  <user />
-               </el-icon>
-               <div class="detailed-people">
-                  <div class="user">{{ user2 }}</div>
-                  <div class="job">{{ job2 }}</div>
-               </div>
-
-            </div>
-            <div class="simple-people">
-               <el-icon :size="40">
-                  <user />
-               </el-icon>
-               <div class="detailed-people">
-                  <div class="user">{{ user3 }}</div>
-                  <div class="job">{{ job3 }}</div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- <br> -->
-      <div class="statis" id="statis"></div>
-      <div class="money" id="money">
-         <div class="expend" id="expend"></div>
-         <div class="line"></div>
-         <div class="income" id="income"></div>
-      </div>
-   </div>
 </template>
 
 <script setup lang="ts">
@@ -392,6 +402,24 @@ router.beforeEach((to, from, next) => {
 </script>
 
 <style scoped>
+.common-layout {
+   height: 870px;
+   width: 100%;
+}
+
+.el-container {
+   height: 100%;
+}
+
+.el-header {
+   height: 80px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: 2px solid black;
+}
+
+
 td {
    border: 1px solid;
    padding-left: 10px;
@@ -410,9 +438,7 @@ tr:first-child {
 .ad {
    width: 230px;
    /* height: 100%; */
-   position: absolute;
-   top: 5px;
-   right: 32px;
+   position: relative;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -621,7 +647,7 @@ tr:first-child {
 
 .main {
    display: grid;
-   margin-top: 40px;
+   margin-top: 10px;
    margin-left: 35px;
    grid-template-rows: 150px 290px 290px;
    grid-template-columns: repeat(5, 220px);
