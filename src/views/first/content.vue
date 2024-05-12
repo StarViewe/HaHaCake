@@ -24,6 +24,13 @@
 
 <script lang="ts" setup name="">
 import { RouterLink, RouterView } from 'vue-router'
+import { reactive, ref, onMounted } from 'vue';
+const mainImg = ref('');
+mainImg.value = '/public/images/mainback-img.jpg'
+document.body.style.backgroundImage = `url(${mainImg.value}`
+document.body.style.backgroundSize = 'cover';
+document.body.style.backgroundRepeat = 'no-repeat';
+document.body.style.backgroundAttachment = 'fixed'
 </script>
 
 <style scoped>
@@ -32,12 +39,25 @@ import { RouterLink, RouterView } from 'vue-router'
     width: 100%;
 }
 
+.test {
+    /* height: 1000px; */
+    /* background-color: black; */
+}
+
+.el-menu {
+    background-color: transparent;
+    margin-top: 30px;
+    border: none;
+}
+
 .el-container {
     height: 100%;
 }
 
 .el-aside {
-    background-color: rgb(253, 128, 128);
+    /* background-color: white; */
+    overflow: hidden;
+    backdrop-filter: blur(15px);
     /* opacity: 0.5; */
 }
 
@@ -48,14 +68,16 @@ import { RouterLink, RouterView } from 'vue-router'
 .el-main {
     /* background-color: rgb(161, 161, 255); */
     /* opacity: 0.5; */
+    padding: 0px;
 }
 
 .logo {
     width: 100%;
-    height: 100px;
+    height: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    font-size: 30px;
+    transform: skew(-10deg);
 }
 </style>

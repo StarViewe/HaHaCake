@@ -1,0 +1,4 @@
+4.23
+如果使用el元素却发现并无法在页面上如期望分布,可以去根文件夹的style中修改'#app'的相应属性
+
+不知道为什么，content的内容总是无法在routerview中显示出来。router的index.ts还报错
