@@ -29,67 +29,74 @@
                <div class="search">
                   <el-form :inline="true" :model="form" class="demo-form-inline">
                      <el-form-item>
+
                         <el-input v-model="form.searching" style="width: 500px;height: 50px;"
                            placeholder="请输入想要查找的物料" />
+
                      </el-form-item>
                      <el-form-item>
-                        <el-button type="primary" @click="onSearch">搜索</el-button>
+                        <el-button type="primary" >搜索</el-button>
                      </el-form-item>
                   </el-form>
                </div>
                <div class="quickAct">
+
                   <span style="font-size: 1.5rem;font-weight: 600;margin-left: 10px;margin-top: 5px;">物料快捷操作</span>
                   <br>
-                  <el-form :model="form" label-width="auto" style="width: 566px; transform: translateX(8px);">
-                     <el-form-item label="物料名称">
+
+                  <el-form :model="form" label-width="auto" ref="ruleFormRef" :rules="rules"
+                     style="width: 600px; transform: translateX(8px);" :inline="true">
+                     <el-form-item label="物料名称" prop="name" style="width: 568px;">
                         <el-input v-model="form.name" />
                      </el-form-item>
                      <!-- 可以加个自动补全 -->
-                     <el-form-item label="物料来源">
+                     <el-form-item label="物料来源" prop="resource" style="width: 568px;">
                         <el-input v-model="form.resource" />
                      </el-form-item>
-                     <el-form-item label="操作人">
+                     <el-form-item label="操作人" prop="operater" style="width: 568px;">
                         <el-input v-model="form.operater" />
                      </el-form-item>
-                  </el-form>
-                  <el-form :model="form" label-width="auto" style="max-width: 600px;transform: translateX(8px);"
-                     inline="true">
-                     <el-form-item label="变化数量">
-                        <el-input v-model="form.num" />
+                  <!-- </el-form> -->
+
+                  <!-- <el-form :model="form" label-width="auto" ref="ruleFormRef" :rules="rules" -->
+                     <!-- style="max-width: 610px;transform: translateX(8px);" inline="true"> -->
+                     <el-form-item label="变化数量" prop="num" style="width: 266.67px;">
+                        <el-input v-model="form.num" @change="totalPrice()"/>
                      </el-form-item>
-                     <el-form-item label="变动类型">
+                     <el-form-item label="变动类型" prop="type" style="width: 266.67px;">
                         <el-input v-model="form.type" />
                      </el-form-item>
-                     <el-form-item label="生产日期" style="width: 266.67px;">
+                     <el-form-item label="生产日期" style="width: 266.67px;" prop="date1">
                         <el-col :span="11">
                            <el-date-picker v-model="form.date1" type="date" placeholder="选择日期" style="width: 200px;" />
                         </el-col>
                      </el-form-item>
-                     <el-form-item label="保质期">
+                     <el-form-item label="保质期" prop="shelfLife" style="width: 266.67px;">
                         <el-input v-model="form.shelfLife" />
                      </el-form-item>
-                     <el-form-item label="单价">
-                        <el-input v-model="form.unitPrice" />
+                     <el-form-item label="单价" prop="unitPrice" style="width: 266.67px;">
+                        <el-input v-model="form.unitPrice" @change="totalPrice()"/>
                      </el-form-item>
-                     <el-form-item label="总价">
-                        <el-input v-model="form.totalPrice" />
+                     <el-form-item label="总价" style="width: 266.67px;">
+                        <el-input disabled v-model="form.totalPrice"/>
                      </el-form-item>
-                     <el-form-item label="变动日期" style="width: 266.67px;">
+                     <el-form-item label="变动日期" style="width: 266.67px;" prop="date2">
                         <el-col :span="11">
                            <el-date-picker v-model="form.date2" type="date" placeholder="选择日期" style="width: 200px;" />
                         </el-col>
                      </el-form-item>
-                     <el-form-item label="仓位">
+                     <el-form-item label="仓位" prop="position" style="width: 266.67px;">
                         <el-input v-model="form.position" />
                      </el-form-item>
-                  </el-form>
-                  <el-form :model="form" label-width="68px" style="width: 566px;transform: translateX(8px);">
-                     <el-form-item label="备注">
+                  <!-- </el-form> -->
+                  <!-- <el-form :model="form" label-width="68px" ref="ruleFormRef" :rules="rules" -->
+                  <!-- style="width: 566px;transform: translateX(8px);"> -->
+                     <el-form-item label="备注" style="width: 568px;">
                         <el-input v-model="form.desc" type="textarea" />
                      </el-form-item>
-                     <el-form-item>
-                        <el-button type="primary" @click="onSubmit" style="outline: none;">执行操作</el-button>
-                        <el-button style="outline: none;">清空操作</el-button>
+                     <el-form-item style="transform: translateX(80px);">
+                        <el-button type="primary" @click="submitForm(ruleFormRef)" style="outline: none;">执行操作</el-button>
+                        <el-button @click="resetForm(ruleFormRef)" style="outline: none;">清空操作</el-button>
                         <!-- 这里可以加个是否确认删除,以及是否关闭提示 -->
                      </el-form-item>
                   </el-form>
@@ -101,8 +108,100 @@
 </template>
 
 <script lang='ts' setup name=''>
-import { reactive, onMounted } from 'vue'
+import { reactive, onMounted, ref } from 'vue'
 import * as echarts from 'echarts';
+import type { FormInstance, FormRules } from 'element-plus'
+
+const form = reactive<Form>({
+   name: '',
+   num: 0,
+   type: '',
+   shelfLife: '',
+   resource: '',
+   date1: '',
+   unitPrice: 0,
+   totalPrice: 0,
+   date2: '',
+   position: '',
+   desc: '',
+   operater: '',
+   searching: '',
+})
+
+interface Form{
+   name: string,
+   num: number,
+   type: string,
+   shelfLife: string,
+   resource: string,
+   date1: any,
+   unitPrice: number,
+   totalPrice: number,
+   date2: any,
+   position: string,
+   desc: string,
+   operater: string,
+   searching: string,
+}
+
+let totalPrice = () => {
+   form.totalPrice = form.unitPrice * form.num
+}
+
+const ruleFormRef = ref<FormInstance>()
+const rules = reactive<FormRules<Form>>({
+   name: [
+      { required: true, message: '请输入物料名称', trigger: 'blur' }
+   ],
+   num: [
+      { required: true, message: '请输入变化数量', trigger: 'blur' }
+   ],
+   type: [
+      { required: true, message: '请输入变动类型', trigger: 'blur' }
+   ],
+   shelfLife: [
+      { required: true, message: '请输入保质期', trigger: 'blur' }
+   ],
+   resource: [
+      { required: true, message: '请输入来源', trigger: 'blur' }
+   ],
+   date1: [
+      { required: true, message: '请选择生产日期', trigger: 'blur' }
+   ],
+   date2: [
+      { required: true, message: '请选择变动日期', trigger: 'blur' }
+   ],
+   unitPrice: [
+      { required: true, message: '请输入单价', trigger: 'blur' }
+   ],
+   position: [
+      { required: true, message: '请输入仓位', trigger: 'blur' }
+   ],
+   desc: [
+      { required: true, message: '请输入备注', trigger: 'blur' }
+   ],
+   operater: [
+      { required: true, message: '请输入操作员', trigger: 'blur' }
+   ],
+})
+
+const submitForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid, fields) => {
+    if (valid) {
+      console.log('submit!')
+    } else {
+      console.log('error submit!', fields)
+    }
+  })
+}
+
+const resetForm = (formEl: FormInstance | undefined) => {
+   form.totalPrice = 0
+   if (!formEl) return
+   formEl.resetFields()
+}
+
 onMounted(() => {
    const chartDom = document.getElementById('quickView');
    if (chartDom) {
@@ -185,27 +284,7 @@ onMounted(() => {
    }
 }
 )
-const form = reactive({
-   name: '',
-   num: '',
-   type: '',
-   shelfLife: '',
-   resource: '',
-   date1: '',
-   unitPrice: '',
-   totalPrice: '',
-   date2: '',
-   position: '',
-   desc: '',
-   operater: '',
-   searching: '',
-})
-const onSubmit = () => {
-   console.log('submit!')
-}
-const onSearch = () => {
-   console.log('search!')
-}
+
 
 const tableData = [
    {
@@ -336,7 +415,7 @@ const tableData = [
    height: 100%;
 }
 
-.el-header {
+.el-header { 
    height: 80px;
    display: flex;
    justify-content: space-between;
